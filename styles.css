@@ -25,3 +25,24 @@ body {
   padding: 5px;
   color: #0a0a23;
 }
+
+#monster_stats{
+  background-color: #c70d0d;
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #ffffff;
+  display: none;
+
+}
+
+.stat{
+  padding: 10px;
+}
+
+button{
+  cursor: pointer;
+  color: #0a0a23;
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #feac32;
+}
