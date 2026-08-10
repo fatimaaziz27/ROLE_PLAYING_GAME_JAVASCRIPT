@@ -19,3 +19,28 @@ const monster_name = document.querySelector("#monsterName");
 
 const monster_health = document.querySelector("#monster_health");
 const monster_health_text = document.querySelector("#monster_health_text");
+
+function go_store() {
+  button1.innerText = "Buy 10 health (10 gold)";
+  button2.innerText = "Buy weapon (30 gold)";
+  button3.innerText = "Go to town square";
+  
+  button1.onclick = buyHealth;
+  button2.onclick = buyWeapon;
+  button3.onclick = goTown;
+}
+
+function go_cave() {
+  console.log("Going to cave.");
+
+}
+
+function fight_dragon() {
+  console.log("Fighting dragon.");
+
+}
+
+// initialize buttons
+button1.onclick = go_store;
+button2.onclick = go_cave;
+button3.onclick = fight_dragon;
