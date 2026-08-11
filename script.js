@@ -16,9 +16,7 @@ const health_text = document.querySelector("#health_text");
 const gold_text = document.querySelector("#gold_text");
 const monster_stats = document.querySelector("#monster_stats");
 const monster_name = document.querySelector("#monster_name");
-
 const monster_health = document.querySelector("#monster_health");
-const monster_health_text = document.querySelector("#monster_health");
 
 // initialize buttons
 button1.onclick = go_store;
@@ -31,7 +29,6 @@ const weapons = [
   {name: "claw_hammer" , power: 50},
   {name:"sword" , power: 100}
   ];
-
 
 const locations = [
   {
@@ -109,8 +106,9 @@ function go_fight(){
   monsters_health = monsters[fighting].health;
   monster_stats.style.display = "block";
   monster_name.innerText = monsters[fighting].name;
-  monster_health_text.innerText = monsters_health;
+  monster_health.innerText = monsters_health;
 }
+
 
 function fight_slime() {
   fighting = 0;
@@ -140,8 +138,7 @@ function attack(){
   }
 
   health_text.innerText = health;
-  monster_health_text.innerText = monsters_health;
-
+  monster_health.innerText = monsters_health;
 
   if (health <= 0){
     lose();
@@ -254,12 +251,12 @@ function pick(guess){
   }
 
   if (numbers.includes(guess)){
-    text.innerText = "Right! You win gold!"
+    text.innerText += "Right! You win gold!"
     gold += 20;
     gold_text.innerText = gold;
   }
   else{
-    text.innerText = "Wrong! You lose health!"
+    text.innerText += "Wrong! You lose health!"
     health -= 10;
     health_text.innerText = health;
   }
