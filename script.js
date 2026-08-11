@@ -20,6 +20,10 @@ const monster_name = document.querySelector("#monster_name");
 const monster_health = document.querySelector("#monster_health");
 const monster_health_text = document.querySelector("#monster_health_text");
 
+// initialize buttons
+button1.onclick = go_store;
+button2.onclick = go_cave;
+button3.onclick = fight_dragon;
 
 const weapons = [
   {name: "stick" , power: 5},
@@ -64,8 +68,15 @@ const locations = [
     name:"lose",
     button_text:["REPLAY?" , "REPLAY?" , "REPLAY?"],
     button_function:[restart , restart , restart],
-    text:"You die. ☠"
+    text:"You die. &#x2620;"
+  },
+  {
+    name:"win",
+    button_text:["REPLAY?" , "REPLAY?" , "REPLAY?"],
+    button_function:[restart , restart , restart],
+    text:"You defeat the dragon! YOU WIN THE GAME! 🎉"
   }
+  
 ];
 
 
@@ -114,7 +125,7 @@ function fight_dragon() {
 function attack(){
   text.innerText = "The " + monster_name +"attacks.";
   text.innerText += " You attack it with your " + weapons[current_weapon_index].name + ".";
-  health -= monsters[fighting].level;
+  health -= getmonsters_attack_value(monsters[fighting].level);
   monster_health -= weapons[current_weapon_index].power + Math.floor(Math.random() * xp) + 1;
   health_text.innerText = health;
   monster_health_text.innerText = monster_health;
@@ -132,11 +143,19 @@ function attack(){
   }
 }
 
+function monsters_attack_value(level){
+  
+}
+
 function dodge(){
   text.innerText = "You dodge the attack from the " + monster[fighting].name;
 }
 
 function lose(){
+  update(locations[6]);
+}
+
+function win_game(){
   update(locations[6]);
 }
 
@@ -160,11 +179,6 @@ function sell_weapon(){
   text.innerText = "Don't sell your only weapon!";
   }
 }
-
-// initialize buttons
-button1.onclick = go_store;
-button2.onclick = go_cave;
-button3.onclick = fight_dragon;
 
 function buy_weapon() {
   if(current_weapon_index < weapons.length-1){
@@ -210,7 +224,7 @@ function update(location) {
   button2.onclick = location["button_function"][1];
   button3.onclick = location["button_function"][2];
 
-  text.innerText = location.text;
+  text.innerHTML = location.text;
 }
 
 function restart(){
