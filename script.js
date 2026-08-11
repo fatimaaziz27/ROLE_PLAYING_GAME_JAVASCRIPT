@@ -61,7 +61,7 @@ const locations = [
   {
     name:"kill_monster",
     button_text:["Go to town square" , "Go to town square" , "Go to town square"],
-    button_function:[go_town , go_town , go_town],
+    button_function:[go_town , go_town , easter_egg],
     text:"The monster screams \"Arg!\" as it dies. You gain experience points and find gold."
   },
   {
@@ -75,8 +75,13 @@ const locations = [
     button_text:["REPLAY?" , "REPLAY?" , "REPLAY?"],
     button_function:[restart , restart , restart],
     text:"You defeat the dragon! YOU WIN THE GAME! 🎉"
+  },
+  {
+    name:"easter_egg",
+    button_text:[2 , 8 , "Go to town square?"],
+    button_function:[pick_two , pick_eight , go_town],
+    text:"You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
   }
-  
 ];
 
 
@@ -236,7 +241,31 @@ function easter_egg(){
   update(locations[7]);
 }
 
-function pick(guess){}
+function pick(guess){
+  const numbers = [];
+  while(numbers.length < 10){
+    numbers.push(Math.random()*11);
+  }
+  text.innerText = "You picked "+ guess +". Here are the random numbers:\n"
+
+  for (i=0; i<=10; i++){
+    text.innerText += numbers[i] + "\n";
+  }
+
+  if (numbers.includes(guess)){
+    text.innerText = "Right! You win 20 gold!"
+    gold += 20;
+    gold_text.innerText = gold;
+  }
+  else{
+    text.innerText = "Wrong! You lose 10 health!"
+    health -= 10;
+    health_text.innerText = health;
+  }
+  if (health <= 0){
+    lose();
+  }
+}
 
 function pick_two(){
   pick(2);
