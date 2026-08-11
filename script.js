@@ -130,10 +130,13 @@ function attack(){
   if (is_monster_health()){
     monster_health -= weapons[current_weapon_index].power + Math.floor(Math.random() * xp) + 1;
   }
+  else {
+    text.innerText += "You miss.";
+  }
 
   health_text.innerText = health;
   monster_health_text.innerText = monster_health;
-  
+
   if (health <= 0){
     lose();
   }
@@ -145,6 +148,15 @@ function attack(){
     defeat_monster();
     }
   }
+
+  if(Math.random() <= 1 && inventory.length != 1){
+    text.innerText += " Your "+ inventory.pop() +" breaks."
+    current_weapon_index--;
+  }
+}
+
+function is_monster_hit(){
+  return Math.random()> .2 || health < 20;
 }
 
 function monsters_attack_value(level){
@@ -218,6 +230,20 @@ function buy_health() {
   else{
     text.innerText = "You do not have enough gold to buy health.";
   }
+}
+
+function easter_egg(){
+  update(locations[7]);
+}
+
+function pick(guess){}
+
+function pick_two(){
+  pick(2);
+}
+
+function pick_eight(){
+  pick(8);
 }
 
 function update(location) {
