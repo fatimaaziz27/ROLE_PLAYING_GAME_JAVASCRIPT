@@ -28,12 +28,10 @@ body {
 }
 
 #monster_stats{
-  background-color: #c70d0d;
   border: 1px solid #1f461e;
   padding: 5px;
   color: #ffffff;
   display: none;
-
 }
 
 .stat{
@@ -49,23 +47,3 @@ button{
   margin-left: 40px;
   margin-right: 15px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
