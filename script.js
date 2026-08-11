@@ -299,21 +299,3 @@ function restart(){
   xp_text.innerText = xp;
   go_town();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
