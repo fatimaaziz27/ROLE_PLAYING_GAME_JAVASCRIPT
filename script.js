@@ -18,7 +18,7 @@ const monster_stats = document.querySelector("#monster_stats");
 const monster_name = document.querySelector("#monster_name");
 
 const monster_health = document.querySelector("#monster_health");
-const monster_health_text = document.querySelector("#monster_health_text");
+const monster_health_text = document.querySelector("#monster_health");
 
 // initialize buttons
 button1.onclick = go_store;
@@ -106,10 +106,10 @@ function go_cave() {
 
 function go_fight(){
   update(locations[3]);
-  monsters_Health = monsters[fighting].health;
+  monsters_health = monsters[fighting].health;
   monster_stats.style.display = "block";
   monster_name.innerText = monsters[fighting].name;
-  monster_health_text.innerText = monsters_Health;
+  monster_health_text.innerText = monsters_health;
 }
 
 function fight_slime() {
@@ -128,7 +128,7 @@ function fight_dragon() {
 }
 
 function attack(){
-  text.innerText = "The " + monster_name.innerText +"attacks.";
+  text.innerText = "The " + monster_name.innerText +" attacks.";
   text.innerText += " You attack it with your " + weapons[current_weapon_index].name + ".";
   health -= monsters_attack_value(monsters[fighting].level);
   
@@ -142,24 +142,20 @@ function attack(){
   health_text.innerText = health;
   monster_health_text.innerText = monsters_health;
 
+
   if (health <= 0){
     lose();
   }
-  else if(monsters_health <= 0){
+  else if (monsters_health <= 0){
     if(fighting === 2){
       win_game();
     }
     else{
     defeat_monster();
     }
+  }
 
   if(Math.random() <= 0.1 && inventory.length != 1){
-    text.innerText += " Your " + inventory.pop() + " breaks.";
-    current_weapon_index--;
-  }
-}
-
-  if(Math.random() <= 1 && inventory.length != 1){
     text.innerText += " Your "+ inventory.pop() +" breaks."
     current_weapon_index--;
   }
@@ -253,17 +249,17 @@ function pick(guess){
   }
   text.innerText = "You picked "+ guess +". Here are the random numbers:\n"
 
-  for (let i=0; i<=10; i++){
+  for (let i=0; i < 10; i++){
     text.innerText += numbers[i] + "\n";
   }
 
   if (numbers.includes(guess)){
-    text.innerText = "Right! You win 20 gold!"
+    text.innerText = "Right! You win gold!"
     gold += 20;
     gold_text.innerText = gold;
   }
   else{
-    text.innerText = "Wrong! You lose 10 health!"
+    text.innerText = "Wrong! You lose health!"
     health -= 10;
     health_text.innerText = health;
   }
