@@ -3,7 +3,7 @@ let health =100;
 let gold = 50;
 let current_weapon_index = 0;
 let fighting;
-let monster_health;
+let monsters_health;
 let inventory = ["stick"];
 
 const button1 = document.querySelector("#button1");
@@ -86,9 +86,9 @@ const locations = [
 
 
 const monsters = [
-  {"slime": 2 , health: 15},
-  {"fanged_beast": 8 , health: 60},
-  {"dragon": 20 , health: 300}
+  { name: "slime", level: 2, health: 15 },
+  { name: "fanged beast", level: 8, health: 60 },
+  { name: "dragon", level: 20, health: 300 }
 ];
 
 function go_town() {
@@ -106,10 +106,10 @@ function go_cave() {
 
 function go_fight(){
   update(locations[3]);
-  monster_health = monsters[fighting].health;
+  monsters_Health = monsters[fighting].health;
   monster_stats.style.display = "block";
   monster_name.innerText = monsters[fighting].name;
-  monster_health_text.innerText = monster_health;
+  monster_health_text.innerText = monsters_Health;
 }
 
 function fight_slime() {
@@ -128,31 +128,36 @@ function fight_dragon() {
 }
 
 function attack(){
-  text.innerText = "The " + monster_name +"attacks.";
+  text.innerText = "The " + monster_name.innerText +"attacks.";
   text.innerText += " You attack it with your " + weapons[current_weapon_index].name + ".";
-  health -= getmonsters_attack_value(monsters[fighting].level);
+  health -= monsters_attack_value(monsters[fighting].level);
   
-  if (is_monster_health()){
-    monster_health -= weapons[current_weapon_index].power + Math.floor(Math.random() * xp) + 1;
+  if (is_monster_hit()){
+    monsters_health -= weapons[current_weapon_index].power + Math.floor(Math.random() * xp) + 1;
   }
   else {
-    text.innerText += "You miss.";
+    text.innerText += " You miss.";
   }
 
   health_text.innerText = health;
-  monster_health_text.innerText = monster_health;
+  monster_health_text.innerText = monsters_health;
 
   if (health <= 0){
     lose();
   }
-  else if(monster_health <= 0){
+  else if(monsters_health <= 0){
     if(fighting === 2){
       win_game();
     }
     else{
     defeat_monster();
     }
+
+  if(Math.random() <= 0.1 && inventory.length != 1){
+    text.innerText += " Your " + inventory.pop() + " breaks.";
+    current_weapon_index--;
   }
+}
 
   if(Math.random() <= 1 && inventory.length != 1){
     text.innerText += " Your "+ inventory.pop() +" breaks."
@@ -171,11 +176,11 @@ function monsters_attack_value(level){
 }
 
 function dodge(){
-  text.innerText = "You dodge the attack from the " + monster[fighting].name;
+  text.innerText = "You dodge the attack from the " + monsters[fighting].name;
 }
 
 function lose(){
-  update(locations[6]);
+  update(locations[5]);
 }
 
 function win_game(){
@@ -221,7 +226,7 @@ function buy_weapon() {
   else{
     text.innerText = "You already have the most powerful weapon!";
     button2.innerText = "Sell weapon for 15 gold";
-    button2.onclick = sell_weapon();
+    button2.onclick = sell_weapon;
   }
 }
 
@@ -244,11 +249,11 @@ function easter_egg(){
 function pick(guess){
   const numbers = [];
   while(numbers.length < 10){
-    numbers.push(Math.random()*11);
+    numbers.push(Math.floor(Math.random()*11));
   }
   text.innerText = "You picked "+ guess +". Here are the random numbers:\n"
 
-  for (i=0; i<=10; i++){
+  for (let i=0; i<=10; i++){
     text.innerText += numbers[i] + "\n";
   }
 
